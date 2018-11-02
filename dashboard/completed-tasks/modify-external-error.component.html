@@ -1,0 +1,47 @@
+
+<app-page-header [heading]="'Modify Error Details'" [icon]="'fa-cog'"></app-page-header>
+<!-- {{listError|json}} -->
+<div class="backButton">
+        <!--<span class="carousel-control-prev-icon"></span>-->
+     <a routerLink ="/dashboard/completed-tasks-details" >Back</a>
+    </div>
+<div class="row change-password-form-page">
+    <div class="col-md-4">
+
+    </div>
+    <div class="col-md-4 change-password-form">
+        <form #f="ngForm" (ngSubmit)="f.form.valid && updateExternalError(f)">
+            <input type="hidden" name="task_id" [(ngModel)]="listError.task_id" class="form-control"/>
+            <input type="hidden" name="id" [(ngModel)]="listError.id" class="form-control"/>
+            <label for="trnumber">TR Number</label>
+            <select class="form-control" id="tr_number" [(ngModel)]="listError.tr_number"  name="tr_number" required>
+                    <option *ngFor="let trN of trNumber;">{{trN.tr_number}}</option>
+            </select>
+            <label for="reportedOn">Reported ON</label>
+            <input type="date" class="form-control" id="date" name="reported_on" [(ngModel)]="listError.reported_on" required/>
+            <label for="addedBy">Added By</label>
+            <select class="form-control" id="added_by" [(ngModel)]="listError.added_by"  name="added_by" required>
+                    <option>{{listError.added_by}}</option>
+                <option *ngFor="let userInfo of user;" >{{userInfo.firstName}}</option>
+            </select>
+            <label for="pdperson">PD Person</label>
+            <select  class="form-control" id="pd_person" [(ngModel)]="listError.pd_person"  name="pd_person" required>
+                    <option>{{listError.pd_person}}</option>
+                <option *ngFor="let userInfo of user;">{{userInfo.firstName}}</option>
+            </select>
+            <label for="qcperson">QC Person</label>
+            <select  class="form-control" id="qc_person" [(ngModel)]="listError.qc_person"  name="qc_person" required>
+                <option>{{listError.qc_person}}</option>
+                <option *ngFor="let userInfo of user;">{{userInfo.firstName}}</option>
+            </select>
+            <label for="errorDescription">Error Description</label>
+            <textarea name="error_description"  [(ngModel)]="listError.error_description" class="form-control">
+            </textarea>
+
+            <button class="btn btn-success">Submit</button>
+        </form>
+    </div>
+    <div class="col-md-4">
+
+    </div>
+</div>

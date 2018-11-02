@@ -1,0 +1,121 @@
+
+<!-- 
+<div class="container">
+    <div class="row">
+        <div class="col-md-1">
+        </div>  
+        <div class="col-md-10">
+                <div class="row form-bg">
+                    <div class="col-md-12">
+                        <h3 class="text-center">{{title}}</h3>          
+                    </div>
+                    <div class="col-md-4">
+                            
+                     </div>
+                    <div class="col-md-4 text-center m-t-10">
+                        <label for="year">Select Year</label>
+                            <select name="year" id="year" class="form-control" [(ngModel)]="year" (change)="JobsByYear(year)">
+                                    <option value="2018" selected="selected">2018</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2016">2016</option>
+                                    <option value="2015">2015</option>
+                            </select>
+                    </div>
+                    <div class="col-md-4">
+                            
+                    </div>
+                    </div>
+                    <div class="row form-bg m-t-20">
+                    <div class="col-md-12">
+                            <div *ngIf="barChartData">
+                                    <canvas baseChart
+                                        [datasets]="barChartData"
+                                        [labels]="barChartLabels"
+                                        [options]="barChartOptions"
+                                        [legend]="barChartLegend"
+                                        [chartType]="barChartType"
+                                        (chartHover)="chartHovered($event)"
+                                        (chartClick)="chartClicked($event)">
+                                    </canvas>
+                                </div>
+                    </div>
+                        
+                    <span (click)="randomize()"></span>
+                </div>
+        </div>
+        <div class="col-md-1">
+        </div> 
+        
+        
+    </div>
+</div>
+<div class="row">
+   
+    <div class="col-md-8">
+
+    </div>
+    
+    
+</div> -->
+<!-- <canvas id="myChart" width="400" height="400"></canvas> -->
+<!-- <div class="container"> -->
+    <div class="row">
+        <div class="col-md-1">
+
+        </div>
+        <div class="col-md-10 text-center report-card">
+            <h4>{{title}}</h4>
+          
+            <form #jobsByYear="ngForm" (ngSubmit)="jobsByYear.form.valid && JobsByYear(jobsByYear)">
+                <div class="row m-t-20"> 
+                <div class="col-md-2">
+
+                </div>
+                <div class="col-md-3 text-center">
+                    <label for="year">Year</label>
+                    <select name="year" class="form-control" id="year" [(ngModel)]="year">
+                        <option *ngFor="let year of yearArr" value="{{year.year}}" selected="selected">{{year.year}}</option>
+                    </select>
+                </div>
+                <div class="col-md-3 text-center">
+                    <label for="client_name">Client Name</label>
+                    <select name="client_name" class="form-control" id="client_name" [(ngModel)]="client_name">
+                        <option *ngFor="let client of clientName?.client_name" value="{{client.key}}">{{client.key}}</option>
+                    </select>
+                </div>
+                <div class="col-md-2 m-t-30 text-left">
+                   <button class="btn btn-md btn-success">submit</button>
+                </div>
+                <div class="col-md-2">
+
+                </div>  
+                </div> 
+            </form>
+        
+        </div>
+        <div class="col-md-1">
+            
+        </div>
+    </div>
+<!-- </div> -->
+<div class="row m-t-20">
+    <div class="col-md-1">
+
+    </div>
+    <div class="col-md-10 report-card">
+      <canvas baseChart
+              [datasets]="barChartData"
+              [labels]="barChartLabels"
+              [options]="barChartOptions"
+              [legend]="barChartLegend"
+              [chartType]="barChartType"
+              (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)"></canvas>
+    </div>
+    <div class="col-md-1">
+        
+    </div>
+    <button style="display: none;" (click)="randomize()">Update</button>
+</div>
+
+<script src="node_modules/chart.js/src/chart.js"></script>

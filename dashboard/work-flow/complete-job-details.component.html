@@ -1,0 +1,278 @@
+<app-page-header [heading]="'Job Details'" [icon]="'fa fa-info-circle'"></app-page-header>
+<div class="backButton">
+                <!--<span class="carousel-control-prev-icon"></span>-->
+                    <a routerLink ="/dashboard/job-briefing-details" >Back</a>
+            </div>
+<div class="container">
+    <div class="col-sm-12">
+        
+                <ngb-tabset type="pills">
+                    <!-- <ngb-tab title="Info">
+                        <ng-template ngbTabContent>
+                            <p> Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+                        </ng-template>
+                    </ngb-tab> -->
+                    <ngb-tab title="Print Spec">
+                        <ng-template ngbTabContent>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-6 m-t-10">
+                                            <strong>Print Process</strong>
+                                        </div>
+                                        <div class="col-md-6 m-t-10">
+                                                {{particularJob.print_process}} 
+                                        </div>
+                                        <div class="col-md-6 m-t-10">
+                                                <strong>Colour Profile</strong>
+                                        </div>
+                                        <div class="col-md-6 m-t-10">
+                                                {{particularJob.colour_profile}}
+                                        </div>
+                                    
+                                        <div class="col-md-6 m-t-10">
+                                                <strong>Trap</strong>
+                                        </div>
+                                        <div class="col-md-6 m-t-10">
+                                                {{particularJob.trap}}
+                                        </div>
+                                       
+                                        <div class="col-md-6 m-t-10">
+                                                <strong>Min. Positive Line</strong>
+                                        </div>
+                                        <div class="col-md-6 m-t-10">
+                                                {{particularJob.min_positive_line}}
+                                        </div>
+                                         <div class="col-md-6 m-t-10">
+                                                <strong>Min. Negative Line</strong>
+                                        </div>
+                                        <div class="col-md-6 m-t-10">
+                                                {{particularJob.min_negative_line}}
+                                        </div>
+                                         <div class="col-md-6 m-t-10">
+                                                <strong>Min. Positive Font</strong>
+                                        </div>
+                                        <div class="col-md-6 m-t-10">
+                                                {{particularJob.min_positive_font}}
+                                        </div>
+                                         <div class="col-md-6 m-t-10">
+                                                <strong>Min. Negative Font</strong>
+                                        </div>
+                                        <div class="col-md-6 m-t-10">
+                                                {{particularJob.min_negative_font}}
+                                        </div>
+                                         <div class="col-md-6 m-t-10">
+                                                <strong>Min. Dot</strong>
+                                        </div>
+                                        <div class="col-md-6 m-t-10">
+                                                {{particularJob.min_dot}}
+                                        </div>
+                                         <div class="col-md-6 m-t-10">
+                                                <strong>Max. Dot</strong>
+                                        </div>
+                                        <div class="col-md-6 m-t-10">
+                                                {{particularJob.max_dot}}
+                                        </div>
+                                        <div class="col-md-6 m-t-10">
+                                                <strong>Pull back/Hold back</strong>
+                                        </div>
+                                        <div class="col-md-6 m-t-10">
+                                                {{particularJob.pullback_holdback}}
+                                        </div>
+                                        <div class="col-md-6 m-t-10">
+                                                <strong>Bleed</strong>
+                                        </div>
+                                        <div class="col-md-6 m-t-10">
+                                                {{particularJob.bleed}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                            <div class="col-md-6 m-t-10">
+                                                    <strong>Bar Code Number</strong>
+                                            </div>
+                                            <div class="col-md-6 m-t-10">
+                                                    {{particularJob.bar_code_number}}
+                                            </div>
+                                            <div class="col-md-6 m-t-10">
+                                                    <strong>Barcode Type</strong>
+                                            </div>
+                                            <div class="col-md-6 m-t-10">
+                                                    {{particularJob.bar_code_type}}
+                                            </div>
+                                            <div class="col-md-6 m-t-10">
+                                                    <strong>BWR</strong>
+                                            </div>
+                                            <div class="col-md-6 m-t-10">
+                                                    {{particularJob.bwr}}
+                                            </div>
+                                           
+                                            <div class="col-md-6 m-t-10">
+                                                    <strong>Min.Magnification</strong>
+                                            </div>
+                                            <div class="col-md-6 m-t-10">
+                                                    {{particularJob.magnification}}
+                                            </div>
+                                          
+                                            <div class="col-md-6 m-t-10">
+                                                    <strong>Other Instruction</strong>
+                                            </div>
+                                            <div class="col-md-6 m-t-10">
+                                                    <!-- {{particularJob.bleed}} -->
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ngb-tab>
+                    <ngb-tab title="Colour">
+                        <ng-template ngbTabContent>
+                                <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-6 m-t-10">
+                                                    <strong>Sequence #01</strong>
+                                                </div>
+                                                <div class="col-md-6 m-t-10">
+                                                        {{print_sequence_array[0]}}
+                                                </div>
+                                                <div class="col-md-6 m-t-10">
+                                                        <strong>Sequence #02</strong>
+                                                </div>
+                                                <div class="col-md-6 m-t-10">
+                                                        {{print_sequence_array[1]}}
+                                                </div>
+                                            
+                                                <div class="col-md-6 m-t-10">
+                                                        <strong>Sequence #03</strong>
+                                                </div>
+                                                <div class="col-md-6 m-t-10">
+                                                        {{print_sequence_array[2]}}
+                                                </div>
+                                               
+                                                <div class="col-md-6 m-t-10">
+                                                        <strong>Sequence #04</strong>
+                                                </div>
+                                                <div class="col-md-6 m-t-10">
+                                                        {{print_sequence_array[3]}}
+                                                </div>
+                                                 <div class="col-md-6 m-t-10">
+                                                        <strong>Sequence #05</strong>
+                                                </div>
+                                                <div class="col-md-6 m-t-10">
+                                                        {{print_sequence_array[4]}}
+                                                </div>
+                                                 <div class="col-md-6 m-t-10">
+                                                        <strong>Sequence #06</strong>
+                                                </div>
+                                                <div class="col-md-6 m-t-10">
+                                                        {{print_sequence_array[5]}}
+                                                </div>
+                                                 <div class="col-md-6 m-t-10">
+                                                        <strong>Sequence #07</strong>
+                                                </div>
+                                                <div class="col-md-6 m-t-10">
+                                                        {{print_sequence_array[6]}}
+                                                </div>
+                                                 <div class="col-md-6 m-t-10">
+                                                        <strong>Sequence #08</strong>
+                                                </div>
+                                                <div class="col-md-6 m-t-10">
+                                                        {{print_sequence_array[7]}}
+                                                </div>
+                                                 <div class="col-md-6 m-t-10">
+                                                        <strong>Sequence #09</strong>
+                                                </div>
+                                                <div class="col-md-6 m-t-10">
+                                                        {{print_sequence_array[8]}}
+                                                </div>
+                                                <div class="col-md-6 m-t-10">
+                                                        <strong>Sequence #10</strong>
+                                                </div>
+                                                <div class="col-md-6 m-t-10">
+                                                        {{print_sequence_array[9]}}
+                                                </div>
+                                                <div class="col-md-6 m-t-10">
+                                                        <strong>Sequence #11</strong>
+                                                </div>
+                                                <div class="col-md-6 m-t-10">
+                                                        {{print_sequence_array[10]}}
+                                                </div>
+                                                <div class="col-md-6 m-t-10">
+                                                        <strong>Sequence #12</strong>
+                                                </div>
+                                                <div class="col-md-6 m-t-10">
+                                                        {{print_sequence_array[11]}}
+                                                </div>
+                                                <div class="col-md-6 m-t-10">
+                                                        <strong>Sequence #13</strong>
+                                                </div>
+                                                <div class="col-md-6 m-t-10">
+                                                        {{print_sequence_array[12]}}
+                                                </div>
+                                                <div class="col-md-6 m-t-10">
+                                                        <strong>Sequence #14</strong>
+                                                </div>
+                                                <div class="col-md-6 m-t-10">
+                                                        {{print_sequence_array[13]}}
+                                                </div>
+                                               
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                    <div class="col-md-6 m-t-10">
+                                                            <strong>Screen Ruling</strong>
+                                                    </div>
+                                                    <div class="col-md-6 m-t-10">
+                                                            {{particularJob.screen_ruling}}
+                                                    </div>
+                                                    <div class="col-md-6 m-t-10">
+                                                            <strong>Dot Shape</strong>
+                                                    </div>
+                                                    <div class="col-md-6 m-t-10">
+                                                            {{particularJob.dot_shapes}}
+                                                    </div>
+                                                    <div class="col-md-6 m-t-10">
+                                                            <strong>Number of Colours</strong>
+                                                    </div>
+                                                    <div class="col-md-6 m-t-10">
+                                                            {{particularJob.number_of_colours}}
+                                                    </div>
+                                                   
+                                                    <div class="col-md-6 m-t-10">
+                                                            <strong>White</strong>
+                                                    </div>
+                                                    <div class="col-md-6 m-t-10">
+                                                             {{particularJob.white}} 
+                                                    </div>
+                                                  
+                                                    <div class="col-md-6 m-t-10">
+                                                            <strong>Varnish</strong>
+                                                    </div>
+                                                    <div class="col-md-6 m-t-10">
+                                                             {{particularJob.varnish}}
+                                                    </div>
+
+                                                    <div class="col-md-6 m-t-10">
+                                                            <strong>Other Instruction</strong>
+                                                    </div>
+                                                    <div class="col-md-6 m-t-10">
+                                                            <!-- {{particularJob.bleed}} -->
+                                                    </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                        </ng-template>
+                    </ngb-tab>
+                    <ngb-tab title="Instructions">
+                            <ng-template ngbTabContent>
+                                <p>{{particularJob.briefing}}</p>
+                            </ng-template>
+                    </ngb-tab>
+                </ngb-tabset>
+           
+    </div>
+</div>

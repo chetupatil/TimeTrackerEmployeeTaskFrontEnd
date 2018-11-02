@@ -1,0 +1,426 @@
+<app-page-header [heading]="'Job Briefing Details'" [icon]="'fa-briefcase'"></app-page-header>
+<div class="row multi-step-form">
+    <div class="col-md-4 step1 text-center">
+       <h4 *ngIf="!steponeform" class="stepone">General Information</h4>      
+       <h4 *ngIf="steponeform" class="stepone">General Information
+           </h4> 
+    </div>
+    <div class="col-md-4 step2 text-center">
+        <h4 *ngIf="steponeform" class="steptwo">Technical Specification</h4>
+        <h4 *ngIf="steptwoform || stepthreeform" class="steptwobg">Technical Specification</h4>
+    </div>
+    <div class="col-md-4 step3 text-center">
+        <h4 *ngIf="steponeform || steptwoform" class="stepthree">Technical Specification</h4>
+        <h4 *ngIf="stepthreeform" class="stepthreebg">Technical Specification</h4>
+    </div>
+    <div class="col-md-12 forms-content">
+        <form #stepOneForm="ngForm" (ngSubmit)="stepOneForm.form.valid && onStepOne(stepOneForm,$event)">
+            <div *ngIf="steponeform" class="row form-data">
+                <div class="col-md-4">
+                        <div class="form-group">
+                                <label for="client_name">Client Name</label>
+                                <select  class="form-control" id="client_name" name="client_name" [(ngModel)]="client_name" (ngModelChange)="getClientResponse(client_name)" placeholder="Client Name" required>
+                                     <option *ngFor="let obj of jsonObject?.client_name;" value="{{ obj.key }}" >{{obj.key}}</option>
+                                </select>
+                                
+                        </div>
+                        <div class="form-group">
+                                <label for="category">Category</label>
+                                <input *ngIf="jobClient" type="text" class="form-control" id="category" [(ngModel)]="category" name="category" placeholder="Select Category" required/>
+                                <input *ngIf="!jobClient" type="text" class="form-control" id="category" [(ngModel)]="job.category" name="category" placeholder="Select Category" required/>
+                            </div>
+                                <div class="form-group">
+                                        <label for="pack_format">Pack Format</label>
+                                        <select *ngIf="jobClient" class="form-control" id="pack_format" name="pack_format" [(ngModel)]="pack_format"  placeholder="Select Pack Format" required>
+                                                <option *ngFor="let obj of jsonObject?.pack_format;" value="{{obj.key}}" >{{obj.key}}</option>
+                                         </select>
+                                         <select *ngIf="!jobClient" class="form-control" id="pack_format" name="pack_format" [(ngModel)]="job.pack_format" placeholder="Select Pack Format" required>
+                                                <option *ngFor="let obj of jsonObject?.pack_format;" value="{{obj.key}}" >{{obj.key}}</option>
+                                         </select>
+                                    </div>
+                                    <div class="form-group">
+                                            <label for="Item Name">Order Ref. / Item Name / Job Title</label>
+                                            <input type="text" class="form-control" id="item_name" [(ngModel)]="item_name" name="item_name" placeholder="Item Name" required/>
+                                        </div>
+                                        <div class="form-group">
+                                                <label for="Briefing">Briefing</label>
+                                                <input *ngIf="jobClient" type="text" class="form-control" id="briefing" [(ngModel)]="briefing" name="briefing" placeholder="Briefing" required/>
+                                                <input *ngIf="!jobClient" type="text" class="form-control" id="briefing" [(ngModel)]="job.briefing" name="briefing" placeholder="Briefing" required/>
+                                     </div>
+                                   <!--  <div class="form-group">
+                                            <label for="task">Task</label>
+                                            <select *ngIf="jobClient" class="form-control" id="task" [(ngModel)]="task" name="task" placeholder="Select Task" >
+                                                    <option *ngFor="let obj of jsonObject?.task;" value="{{ obj.key}}" >{{obj.key}}</option>
+                                             </select>
+                                             <select *ngIf="!jobClient" class="form-control" id="task" [(ngModel)]="job.task" name="task" placeholder="Select Task" >
+                                                    <option *ngFor="let obj of jsonObject?.task;" value="{{ obj.key}}" >{{obj.key}}</option>
+                                             </select>
+                                </div> -->
+                                <div class="form-group">
+                                    <label for="comments">Comments</label>
+                                    <textarea *ngIf="jobClient" name="comments" id="comments" [(ngModel)]="comments" class="form-control" ></textarea>
+                                    <textarea *ngIf="!jobClient" name="comments" id="comments" [(ngModel)]="job.comments" class="form-control" ></textarea>
+                            </div> 
+                                   
+            
+                </div>
+                <div class="col-md-4">
+                       
+                                <div class="form-group">
+                                        <label for="month">Worked At</label>
+                                        <select *ngIf="jobClient" class="form-control" id="worked_at" [(ngModel)]="worked_at" name="worked_at" placeholder="Worked At" required >
+                                         <option *ngFor="let obj of jsonObject?.workedAt; " value="{{ obj.key }}" >{{obj.key}}</option>
+                                        </select>
+                                        <select *ngIf="!jobClient" class="form-control" id="worked_at" [(ngModel)]="job.worked_at" name="worked_at" placeholder="Worked At" required>
+                                                <option *ngFor="let obj of jsonObject?.workedAt; " value="{{ obj.key }}" >{{obj.key}}</option>
+                                        </select>
+                                </div>
+                                    <div class="form-group">
+                                            <label for="category">SKU Type</label>
+                                            <select *ngIf="jobClient" class="form-control" id="sku_type" [(ngModel)]="sku_type" name="sku_type" placeholder="Select SKU Type" required >
+                                                    <option *ngFor="let obj of jsonObject?.sku_type;" value="{{ obj.key }}" >{{obj.key}}</option>
+                                             </select>
+                                             <select *ngIf="!jobClient" class="form-control" id="sku_type" [(ngModel)]="job.sku_type" name="sku_type" placeholder="Select SKU Type" required >
+                                                    <option *ngFor="let obj of jsonObject?.sku_type;" value="{{ obj.key }}" >{{obj.key}}</option>
+                                             </select>
+                                        </div>
+                                    <div class="form-group">
+                                                <label for="tr_number">TR Number</label>
+                                                <input type="text" class="form-control" id="tr_number" [(ngModel)]="tr_number" name="tr_number" placeholder="TR Number" required/>
+                                    </div>
+                                    
+                            <div class="form-group">
+                                    <label for="Revision Type">Revision Type</label>
+                                    <input *ngIf="jobClient" type="text" class="form-control" id="revision_type" [(ngModel)]="revision_type" name="revision_type" placeholder="Revision Type"  required/>
+                                    <input *ngIf="!jobClient" type="text" class="form-control" id="revision_type" [(ngModel)]="job.revision_type" name="revision_type" placeholder="Revision Type" />
+                            </div>
+                            <div class="form-group">
+                                    <label for="date">Brief Date</label>
+                                    <input *ngIf="jobClient" type="date" class="form-control" id="date" [(ngModel)]="brief_date" name="brief_date" placeholder="Enter Date"  required />
+                                    <input *ngIf="!jobClient" type="date" class="form-control" id="date" [(ngModel)]="job.brief_date" name="brief_date" placeholder="Enter Date"  />
+                                </div>
+                                <div class="form-group">
+                                    <label for="email_details">Email Details</label>
+                                    <textarea *ngIf="jobClient" name="email_details"  [(ngModel)]="email_details" class="form-control" id="email_details" ></textarea>
+                                    <textarea *ngIf="!jobClient" name="email_details"  [(ngModel)]="job.email_details" class="form-control" id="email_details" ></textarea>
+                                </div>
+                           
+                            
+                </div>
+                <div class="col-md-4">
+                        
+                                <div class="form-group">
+                                        <label for="brand">Brand</label>
+                                        <input *ngIf="jobClient" type="text" class="form-control" id="brand" [(ngModel)]="brand" name="brand" placeholder="Select Brand" required/>
+                                        <input *ngIf="!jobClient" type="text" class="form-control" id="brand" [(ngModel)]="job.brand" name="brand" placeholder="Select Brand" required/>
+                                        
+                                    </div>
+                                    <div class="form-group">
+                                            <label for="job_type">Job Type / Task</label>
+                                            <select *ngIf="jobClient" class="form-control" id="job_type" name="job_type" [(ngModel)]="job_type"  placeholder="Select Job Type" required>
+                                                    <option *ngFor="let obj of jsonObject?.job_type;" value="{{ obj.key }}" >{{obj.key}}</option>
+                                                <!-- <option value="SIGNAGE">SIGNAGE</option> -->
+                                             </select>
+                                             <select *ngIf="!jobClient" class="form-control" id="job_type" name="job_type" [(ngModel)]="job.job_type" placeholder="Select Job Type" required>
+                                                    <option *ngFor="let obj of jsonObject?.job_type;" value="{{ obj.key }}" >{{obj.key}}</option>
+                                                <!-- <option value="SIGNAGE">SIGNAGE</option> -->
+                                             </select>
+                                        </div>
+                                        <div class="form-group">
+                                                <label for="version">Version</label>
+                                                <input *ngIf="jobClient" type="text" class="form-control" id="version" [(ngModel)]="version" name="version" placeholder="version" required/>
+                                                <input *ngIf="!jobClient" type="text" class="form-control" id="version" [(ngModel)]="job.version" name="version" placeholder="version" required/>
+                                            </div>
+                                            <div class="form-group">
+                                                    <label for="Briefing">Job Category</label>
+                                                    <input *ngIf="jobClient" type="text" class="form-control" id="job_category" [(ngModel)]="job_category" name="job_category" placeholder="Job Category" required/>
+                                                    <input *ngIf="!jobClient" type="text" class="form-control" id="job_category" [(ngModel)]="job.job_category" name="job_category" placeholder="Job Category" required />
+                                         </div>
+                                <div class="form-group">
+                                    <label for="due_date">Due Date</label>
+                                      <input *ngIf="jobClient" type="date" class="form-control" id="date" name="due_date" [(ngModel)]="due_date" placeholder="Due Date"  required />
+                                      <input *ngIf="!jobClient" type="date" class="form-control" id="date" name="due_date" [(ngModel)]="job.due_date" placeholder="Due Date"  required/>
+    
+                                  </div>  
+                                 
+                </div>
+                <div class="col-md-12 next-btn text-right">
+                    <button class="btn btn-md btn-success">Next</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-12 forms-content">
+            <form #stepTwoForm="ngForm" (ngSubmit)="stepTwoForm.form.valid && onStepTwoNext(stepTwoForm)">
+            <div *ngIf="steptwoform" class="row form-data">
+                    <div class="col-md-4">
+                            <div class="form-group">
+                                    <label for="print_process">Print Process</label>
+                                    <select *ngIf="jobClient" class="form-control" id="print_process" name="print_process" [(ngModel)]="print_process"  placeholder="Select Print Process" required>
+                                            <option *ngFor="let obj of jsonObject?.print_process;" value="{{ obj.key }}" >{{obj.key}}</option>
+                                     </select>
+                                     <select *ngIf="!jobClient" class="form-control" id="print_process" name="print_process" [(ngModel)]="job.print_process"  placeholder="Select Print Process" required>
+                                            <option *ngFor="let obj of jsonObject?.print_process;" value="{{ obj.key }}" >{{obj.key}}</option>
+                                     </select>
+                            </div>
+                            <div class="form-group">
+                                    <label for="bwr">BWR</label>
+                                      <input *ngIf="jobClient" type="text" min="0" class="form-control" id="bwr" name="bwr"  [(ngModel)]="bwr" placeholder="BWR (in mm)" required/>
+                                      <input *ngIf="!jobClient" type="text" min="0" class="form-control" id="bwr" name="bwr"  [(ngModel)]="job.bwr" placeholder="BWR (in mm)" required/>
+                                </div>
+                                <div class="form-group">
+                                        <label for="color_profile">Colour Profile</label>
+                                      
+                                          <input *ngIf="jobClient" type="text" class="form-control" id="colour_profile" name="colour_profile"  [(ngModel)]="colour_profile" placeholder="color_profile" required/>
+                                          <input *ngIf="!jobClient" type="text" class="form-control" id="colour_profile" name="colour_profile"  [(ngModel)]="job.colour_profile" placeholder="color_profile" required/>
+                                          
+                                      </div>
+                                      <div class="form-group">
+                                            <label for="min_negative_line">Min. Negative Line</label>
+                                              <input *ngIf="jobClient" type="text" min="0" class="form-control" id="min_negative_line"  name="min_negative_line" [(ngModel)]="min_negative_line" placeholder="Min Negative Line"  required/>
+                                              <input *ngIf="!jobClient" type="text" min="0" class="form-control" id="min_negative_line"  name="min_negative_line" [(ngModel)]="job.min_negative_line" placeholder="Min Negative Line" required/>
+                                    </div> 
+                                
+                    </div>
+                    <div class="col-md-4">
+                            <div class="form-group">
+                                    <label for="print_orientation">Print Orientation</label>
+                                    <select *ngIf="jobClient" class="form-control" id="print_orientation" name="print_orientation"  [(ngModel)]="print_orientation" placeholder="Select Print Orientation" required>
+                                            <option *ngFor="let obj of jsonObject?.print_orientation;" value="{{ obj.key}}" >{{obj.key}}</option>
+                                        
+                                        <!-- <option value="SIGNAGE">SIGNAGE</option> -->
+                                     </select>
+                                     <select  *ngIf ="!jobClient" class="form-control" id="print_orientation" name="print_orientation"  [(ngModel)]="job.print_orientation" placeholder="Select Print Orientation" required>
+                                            <option *ngFor="let obj of jsonObject?.print_orientation;" value="{{ obj.key}}" >{{obj.key}}</option>
+                                        
+                                        <!-- <option value="SIGNAGE">SIGNAGE</option> -->
+                                     </select>
+                                </div>
+                                <div class="form-group">
+                                        <label for="magnification">Magnification</label>
+                                          <input *ngIf="jobClient" type="text" min="0"  class="form-control" id="magnification"  name="magnification" [(ngModel)]="magnification" placeholder="Magnification (in %)" required/>
+                                          <input *ngIf="!jobClient" type="text" min="0"  class="form-control" id="magnification"  name="magnification" [(ngModel)]="job.magnification" placeholder="Magnification (in %)" required/>
+                                    </div>
+                           
+                                    <div class="form-group">
+                                        <label for="substrate">Substrate</label>
+                                          <input *ngIf="jobClient" type="text" min="0" class="form-control" id="sub_strate" name="sub_strate"  [(ngModel)]="sub_strate" placeholder="substrate (in mm)" required/>
+                                          <input *ngIf="!jobClient" type="text" min="0" class="form-control" id="sub_strate" name="sub_strate"  [(ngModel)]="job.sub_strate" placeholder="substrate (in mm)" required/>
+                                      </div>
+                                    <div class="form-group">
+                                            <label for="min_positive_font">Min. Positive font</label>
+                                              <input *ngIf="jobClient" type="text" min="0" class="form-control" id="min_positive_font" name="min_positive_font" [(ngModel)]="min_positive_font" placeholder="Min Positive Font"  required/>
+                                              <input *ngIf="!jobClient" type="text" min="0" class="form-control" id="min_positive_font" name="min_positive_font" [(ngModel)]="job.min_positive_font" placeholder="Min Positive Font"  required/>
+                                        </div>
+                                      
+                    </div>
+                    <div class="col-md-4">
+                            <div class="form-group">
+                                    <label for="bar_code_number">Bar Code Number</label>
+                                  
+                                      <input *ngIf="jobClient" type="text" class="form-control" id="bar_code_number" name="bar_code_number" [(ngModel)]="bar_code_number" placeholder="Bar Code Number" required/>
+                                      <input *ngIf="!jobClient" type="text" class="form-control" id="bar_code_number" name="bar_code_number" [(ngModel)]="job.bar_code_number" placeholder="Bar Code Number" required/>
+                                  </div>
+                                  <div class="form-group">
+                                        <label for="bar_code">Barcode Type</label>
+                                        <select *ngIf="jobClient" class="form-control" id="bar_code_type" name="bar_code_type"  [(ngModel)]="bar_code_type" placeholder="Select Barcode Type" required>
+                                                <option *ngFor="let obj of jsonObject?.barcode_type;" value="{{ obj.key }}" >{{obj.key}}</option>
+                                        </select>
+                                        <select *ngIf="!jobClient" class="form-control" id="bar_code_type" name="bar_code_type"  [(ngModel)]="job.bar_code_type" placeholder="Select Barcode Type" required>
+                                                <option *ngFor="let obj of jsonObject?.barcode_type;" value="{{ obj.key }}" >{{obj.key}}</option>
+                                        </select>
+                                    </div>
+                           
+                                <div class="form-group">
+                                    <label for="min_positive_line">Min. Positive Line</label>
+                                      <input *ngIf="jobClient" type="text" min="0" class="form-control" id="min_positive_line"  name="min_positive_line" [(ngModel)]="min_positive_line" placeholder="Min Positive Line" required/>
+                                      <input *ngIf="!jobClient" type="text" min="0" class="form-control" id="min_positive_line"  name="min_positive_line" [(ngModel)]="job.min_positive_line" placeholder="Min Positive Line" required/>
+                                </div>
+                                <div class="form-group">
+                                        <label for="min_negative_font">Min. Negative font</label>
+                                          <input *ngIf="jobClient" type="text" min="0" class="form-control" id="min_negative_font" name="min_negative_font" [(ngModel)]="min_negative_font" placeholder="Min Negative Font" required/>
+                                          <input *ngIf="!jobClient" type="text" min="0" class="form-control" id="min_negative_font" name="min_negative_font" [(ngModel)]="job.min_negative_font" placeholder="Min Negative Font" required/>
+                                    </div>
+                               
+                    </div>
+                    <div class="col-md-6 prev-btn text-left">
+                            <button class="btn btn-md btn-success" (click)="onStepTwoPrevious()">Previous</button>
+                        </div>
+                    <div class="col-md-6 next-btn text-right">
+                        <button class="btn btn-md btn-success">Next</button>
+                    </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-12 forms-content">
+            <form #stepThreeForm="ngForm" (ngSubmit)="stepThreeForm.valid && onStepThreeNext(stepThreeForm)">
+            <div *ngIf="stepthreeform" class="row form-data">
+                    <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="bleed">Bleed</label>
+                                      <input *ngIf="jobClient" type="text" min="0" class="form-control" id="bleed" name="bleed" [(ngModel)]="bleed" placeholder="Bleed (in mm)" required/>
+                                      <input *ngIf="!jobClient" type="text" min="0" class="form-control" id="bleed" name="bleed" [(ngModel)]="job.bleed" placeholder="Bleed (in mm)" required/>
+                                </div>
+                                <div class="form-group">
+                                        <label for="min_dot">Min.Dot</label>
+                                          <input *ngIf="jobClient" type="text" min="0" class="form-control" id="min_dot" name="min_dot" [(ngModel)]="min_dot" placeholder="Min Dot (in %)" required/>
+                                          <input *ngIf="!jobClient" type="text" min="0" class="form-control" id="min_dot" name="min_dot" [(ngModel)]="job.min_dot" placeholder="Min Dot (in %)" required/>
+                                    </div>
+                                    <div class="form-group">
+                                            <label for="dot_shape">Dot Shape</label>
+                                            <select *ngIf="jobClient" class="form-control" id="dot_shapes" name="dot_shapes" [(ngModel)]="dot_shapes" placeholder="Dot Shape" required>
+                                                    <option *ngFor="let obj of jsonObject?.dot_shape;" value="{{ obj.key }}" >{{obj.key}}</option>
+                              
+                                             </select>
+                                             <select *ngIf="!jobClient" class="form-control" id="dot_shapes" name="dot_shapes" [(ngModel)]="job.dot_shapes" placeholder="Dot Shape" required>
+                                                    <option *ngFor="let obj of jsonObject?.dot_shape;" value="{{ obj.key }}" >{{obj.key}}</option>
+                              
+                                             </select>
+                                        </div>
+                                        <div class="form-group">
+                                                <label for="print_sequence">Print Sequence</label>
+                                                 <input *ngIf="jobClient" type="text" class="form-control" id="print_sequence" name="print_sequence" [(ngModel)]="print_sequence" placeholder="Print Sequence"  required/>
+                                                 <input *ngIf="!jobClient" type="text" class="form-control" id="print_sequence" name="print_sequence" [(ngModel)]="job.print_sequence" placeholder="Print Sequence" required/>
+                                       </div>
+                             
+          
+                                
+                    </div>
+                    <div class="col-md-4">
+                            <div class="form-group">
+                                    <label for="trap">Trap</label>
+                                      <input *ngIf="jobClient" type="text" min="0" class="form-control" id="trap" name="trap" [(ngModel)]="trap" placeholder="Trap (in mm)"  required/>
+                                      <input *ngIf="!jobClient" type="text" min="0" class="form-control" id="trap" name="trap" [(ngModel)]="job.trap" placeholder="Trap (in mm)" required/>
+                                </div>     
+                                <div class="form-group">
+                                        <label for="max_dot">Max.Dot</label>
+                                          <input *ngIf="jobClient" type="text" min="0" class="form-control" id="max_dot" name="max_dot" [(ngModel)]="max_dot" placeholder="Max Dot (in %)" required/>
+                                          <input *ngIf="!jobClient" type="text" min="0" class="form-control" id="max_dot" name="max_dot" [(ngModel)]="job.max_dot" placeholder="Max Dot (in %)" required/>
+                                    </div>
+                                
+                                    <div class="form-group">
+                                            <label for="colors">Number of colours</label>
+                                            <select *ngIf="jobClient" class="form-control" id="number_of_colours" name="number_of_colours" [(ngModel)]="number_of_colours" placeholder="Select No. of colours" required>
+                                                    <option *ngFor="let obj of jsonObject?.numberOf_colours;" value="{{ obj.key}}" >{{obj.key}}</option>
+                                             </select>
+                                             <select *ngIf="!jobClient" class="form-control" id="number_of_colours" name="number_of_colours" [(ngModel)]="job.number_of_colours" placeholder="Select No. of colours" required>
+                                                    <option *ngFor="let obj of jsonObject?.numberOf_colours;" value="{{ obj.key}}" >{{obj.key}}</option>
+                                             </select>
+                                        </div>   
+                                        <div class="form-group">
+                                            <label for="print_sequence">White</label>
+                                             <input *ngIf="jobClient" type="text" class="form-control" id="white" name="white" [(ngModel)]="white" placeholder="White" required />
+                                             <input *ngIf="!jobClient" type="text" class="form-control" id="white" name="white" [(ngModel)]="job.white" placeholder="White"  required/>
+                                   </div>                
+                                         
+                                
+                    </div>
+                    <div class="col-md-4">
+                           
+                                    <div class="form-group">
+                                            <label for="pullback_holdback">Pull Back /Hold Back</label>
+                                              <input *ngIf="jobClient" type="text" min="0" class="form-control" id="pullback_holdback" name="pullback_holdback" [(ngModel)]="pullback_holdback" placeholder="Pull Back (in mm)" required/>
+                                              <input *ngIf="!jobClient" type="text" min="0" class="form-control" id="pullback_holdback" name="pullback_holdback" [(ngModel)]="job.pullback_holdback" placeholder="Pull Back (in mm)" required/>
+                                        </div>
+                                        <div class="form-group">
+                                                <label for="screen_ruling">Screen Ruling</label>
+                                                <select *ngIf="jobClient" class="form-control" id="screen_ruling" name="screen_ruling" [(ngModel)]="screen_ruling" placeholder="Screen Ruling" required>
+                                                        <option *ngFor="let obj of jsonObject?.screen_ruling;" value="{{obj.key}}" >{{obj.key}}</option>
+                                                 </select>
+                                                 <select *ngIf="!jobClient" class="form-control" id="screen_ruling" name="screen_ruling" [(ngModel)]="job.screen_ruling" placeholder="Screen Ruling" required>
+                                                        <option *ngFor="let obj of jsonObject?.screen_ruling;" value="{{obj.key}}" >{{obj.key}}</option>
+                                                 </select>
+                                            </div>
+                                            <div class="form-group">
+                                                    <label for="total_ink_coverage">Total Ink Coverage</label>
+                                                      <input *ngIf="jobClient" type="text" class="form-control" id="total_ink_coverage" name="total_ink_coverage" [(ngModel)]="total_ink_coverage" placeholder="Total Ink Coverage" required/>
+                                                      <input *ngIf="!jobClient" type="text" class="form-control" id="total_ink_coverage" name="total_ink_coverage" [(ngModel)]="job.total_ink_coverage" placeholder="Total Ink Coverage" required />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="screen_ruling">Varnish</label>
+                                                    <select *ngIf="jobClient" class="form-control" id="varnish" name="varnish" [(ngModel)]="varnish" placeholder="Varnish" required>
+                                                            <option *ngFor="let obj of jsonObject?.varnish;" value="{{obj.key}}" >{{obj.key}}</option>
+                                                     </select>
+                                                     <select *ngIf="!jobClient" class="form-control" id="varnish" name="varnish" [(ngModel)]="job.varnish" placeholder="Varnish" required>
+                                                            <option *ngFor="let obj of jsonObject?.varnish;" value="{{obj.key}}" >{{obj.key}}</option>
+                                                     </select>
+                                                </div>
+                                            
+                                    
+                                
+        
+                                
+                    </div>
+                    <div class="col-md-6 prev-btn text-left">
+                            <button class="btn btn-md btn-success" (click)="onStepThreePrevious()">Previous</button>
+                    </div>
+                    <div class="col-md-6 next-btn text-right">
+                        <button class="btn btn-md btn-success">Done</button>
+                </div>
+                    
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<style>
+    /* .multi-step-form > .step1 > h4, .multi-step-form > .step2 > h4, .multi-step-form > .step3 > h4{
+        background-color: #fff;
+        padding: 15px;
+        border: 1px solid #22D69D;
+    } */
+    .stepone,.steptwo,.stepthree {
+        padding: 15px;
+        border: 1px solid #22D69D;
+    }
+    .steptwo,.stepthree{
+        background-color: #fff;
+    }
+    .steptwobg{
+        background-color: #4ebf9b;
+        color: #fff;
+        padding: 16px;
+    }
+    .stepthreebg{
+        background-color: #268c6b;
+        color: #fff;
+        padding: 16px;
+    }
+    .stepone{
+        background: #22D69D;
+        color: #fff;
+    }
+    
+    .multi-step-form > .step1{
+        padding-right: 0;
+    }
+    
+    .multi-step-form > .step2{
+        padding-right: 0;
+        padding-left:0;
+    }
+    .multi-step-form > .step3{
+        padding-left:0;
+    }
+    .multi-step-form > .forms-content > h4{
+        background: #fff;
+        margin-bottom: 0;
+        padding: 20px;
+    }
+    .multi-step-form > .step1 > h4,.multi-step-form > .step2 > h4,.multi-step-form > .step3 > h4{
+        margin-bottom: 0;
+    } 
+    .multi-step-form > .forms-content .form-data {
+        margin-left: 0;
+        margin-right: 0;
+        background: #fff;
+    }
+    .multi-step-form > .forms-content .form-data .form-group {
+        margin-top: 25px;
+    }
+    .multi-step-form > .forms-content .form-data .next-btn{
+        margin-bottom: 20px;
+    }
+
+</style>

@@ -1,0 +1,368 @@
+<app-page-header [heading]="'Job Briefing Details'" [icon]="'fa-briefcase'"></app-page-header>
+
+<div class="row multi-step-form">
+    <div class="col-md-4 step1 text-center">
+       <h4 *ngIf="!steponeform" class="stepone">General Information</h4>      
+       <h4 *ngIf="steponeform" class="stepone">General Information
+           </h4> 
+    </div>
+    <div class="col-md-4 step2 text-center">
+        <h4 *ngIf="steponeform" class="steptwo">Technical Specification</h4>
+        <h4 *ngIf="steptwoform || stepthreeform" class="steptwobg">Technical Specification</h4>
+    </div>
+    <div class="col-md-4 step3 text-center">
+        <h4 *ngIf="steponeform || steptwoform" class="stepthree">Technical Specification</h4>
+        <h4 *ngIf="stepthreeform" class="stepthreebg">Technical Specification</h4>
+    </div>
+    <div class="col-md-12 forms-content">
+        <form #stepOneForm="ngForm" (ngSubmit)="stepOneForm.form.valid && onStepOne(stepOneForm,$event)">
+            <div *ngIf="steponeform" class="row form-data">
+                <div class="col-md-4">
+                        <input type="hidden" class="form-control" id="task_id1" [(ngModel)]="jobRecord.task_id1" name="task_id1" />
+                        <div class="form-group">
+                                <label for="client_name">Client Name</label>
+                                <select class="form-control" id="client_name" name="client_name" [(ngModel)]="jobRecord.client_name"  placeholder="Client Name">
+                                        <option *ngFor="let obj of jsonObject?.client_name;" value="{{ obj.key }}" >{{obj.key}}</option>
+                                </select>
+                        </div>
+                        <div class="form-group">
+                                <label for="category">Category</label>
+                                <input *ngIf="!jobClient" type="text" class="form-control" id="category" [(ngModel)]="jobRecord.category" name="category" placeholder="Select Category"/>
+                                
+                            </div>
+                                <div class="form-group">
+                                        <label for="pack_format">Pack Format</label>
+                                        <select class="form-control" id="pack_format" name="pack_format" [(ngModel)]="jobRecord.pack_format" placeholder="Select Pack Format">
+                                                <option *ngFor="let obj of jsonObject?.pack_format;" value="{{obj.key}}" >{{obj.key}}</option>
+                                         </select>
+                                    </div>
+                                    <div class="form-group">
+                                            <label for="Item Name">Order Ref. / Item Name / Job Title</label>
+                                            <input type="text" class="form-control" id="item_name" [(ngModel)]="jobRecord.item_name" name="item_name" placeholder="Item Name" />
+                                    </div>
+                                    <div class="form-group">
+                                                <label for="Briefing">Briefing</label>
+                                                <input type="text" class="form-control" id="briefing" [(ngModel)]="jobRecord.briefing" name="briefing" placeholder="Briefing" />
+                                    </div>
+                                     <!--<div class="form-group">
+                                            <label for="task">Task</label>
+                                            <select class="form-control" id="task" [(ngModel)]="jobRecord.task" name="task" placeholder="Select Task" >
+                                                    <option *ngFor="let obj of jsonObject?.task;" value="{{ obj.key}}" >{{obj.key}}</option>
+                                             </select>
+                                </div> -->
+                                <div class="form-group">
+                                    <label for="comments">Comments</label>
+                                    <textarea name="comments" id="comments" [(ngModel)]="jobRecord.comments" class="form-control" ></textarea>
+                            </div> 
+                                   
+            
+                </div>
+                <div class="col-md-4">
+                       
+                                <div class="form-group">
+                                        <label for="month">Worked At</label>
+                                        <select class="form-control" id="worked_at" [(ngModel)]="jobRecord.worked_at" name="worked_at" placeholder="Worked At" >
+        
+                                <option *ngFor="let obj of jsonObject?.workedAt; " value="{{ obj.key }}" >{{obj.key}}</option>
+                                          
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                            <label for="category">SKU Type</label>
+                                            <select class="form-control" id="sku_type" [(ngModel)]="jobRecord.sku_type" name="sku_type" placeholder="Select SKU Type" >
+                                                    <option *ngFor="let obj of jsonObject?.sku_type;" value="{{ obj.key }}" >{{obj.key}}</option>
+                                             </select>
+                                        </div>
+                                    <div class="form-group">
+                                                <label for="tr_number">TR Number</label>
+                                                <input type="text" class="form-control" id="tr_number" [(ngModel)]="jobRecord.tr_number" name="tr_number" placeholder="Item Name" />
+                                    </div>
+                                    
+                            <div class="form-group">
+                                    <label for="Revision Type">Revision Type</label>
+                                    <input type="text" class="form-control" id="revision_type" [(ngModel)]="jobRecord.revision_type" name="revision_type" placeholder="Revision Type" />
+                            </div>
+                            <div class="form-group">
+                                    <label for="date">Brief Date</label>
+                                    <input type="date" class="form-control" id="date" [(ngModel)]="jobRecord.brief_date" name="brief_date" placeholder="Enter Date" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="email_details">Email Details</label>
+                                    <textarea name="email_details"  [(ngModel)]="jobRecord.email_details" class="form-control" id="email_details"></textarea>
+                                </div>
+                               
+                           
+                            
+                </div>
+                <div class="col-md-4">
+                        
+                                <div class="form-group">
+                                        <label for="brand">Brand</label>
+                                        <input *ngIf="!jobClient" type="text" class="form-control" id="brand" [(ngModel)]="jobRecord.brand" name="brand" placeholder="Select Brand"/>
+                                    </div>
+                                    <div class="form-group">
+                                            <label for="job_type">Job Type /Task</label>
+                                            <select class="form-control" id="job_type" name="job_type" [(ngModel)]="jobRecord.job_type"  placeholder="Select Job Type">
+                                                    <option *ngFor="let obj of jsonObject?.job_type;" value="{{ obj.key }}" >{{obj.key}}</option>
+                                                <!-- <option value="SIGNAGE">SIGNAGE</option> -->
+                                             </select>
+                                        </div>
+                                        <div class="form-group">
+                                                <label for="version">Version</label>
+                                                <input type="text" class="form-control" id="version" [(ngModel)]="jobRecord.version" name="version" placeholder="version"/>
+                                            </div>
+                                            <div class="form-group">
+                                                    <label for="Briefing">Job Category</label>
+                                                    <input type="text" class="form-control" id="job_category" [(ngModel)]="jobRecord.job_category" name="job_category" placeholder="Job Category"/>
+                                         </div>
+                                <div class="form-group">
+                                    <label for="due_date">Due Date</label>
+                                      <input type="date" class="form-control" id="date" name="due_date" [(ngModel)]="jobRecord.due_date" placeholder="Due Date"/>
+    
+                                  </div>  
+                                  
+                </div>
+                <div class="col-md-12 next-btn text-right">
+                    <button class="btn btn-md btn-success">Next</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-12 forms-content">
+            <form #stepTwoForm="ngForm" (ngSubmit)="stepTwoForm.form.valid && onStepTwoNext(stepTwoForm)">
+            <div *ngIf="steptwoform" class="row form-data">
+                    <div class="col-md-4">
+                            <input type="hidden" class="form-control" id="task_fid1" [(ngModel)]="jobRecord.task_fid1" name="task_fid1" />
+                            <div class="form-group">
+                                    <label for="print_process">Print Process</label>
+                                    <select class="form-control" id="print_process" name="print_process" [(ngModel)]="jobRecord.print_process"  placeholder="Select Print Process">
+                                            <option *ngFor="let obj of jsonObject?.print_process;" value="{{ obj.key }}" >{{obj.key}}</option>
+                                     </select>
+                            </div>
+                            <div class="form-group">
+                                    <label for="bwr">BWR</label>
+                                      <input type="text" min="0" class="form-control" id="bwr" name="bwr"  [(ngModel)]="jobRecord.bwr" placeholder="BWR (in mm)" />
+                                </div>
+                                <div class="form-group">
+                                        <label for="color_profile">Colour Profile</label>
+                                      
+                                          <input type="text" class="form-control" id="colour_profile" name="colour_profile" [(ngModel)]="jobRecord.colour_profile" placeholder="color_profile" />
+                                          
+                                      </div>
+                                      <div class="form-group">
+                                            <label for="min_negative_line">Min. Negative Line</label>
+                                              <input type="text" min="0" class="form-control" id="min_negative_line"  name="min_negative_line" [(ngModel)]="jobRecord.min_negative_line" placeholder="Min Negative Line" />
+                                    </div> 
+                                
+                    </div>
+                    <div class="col-md-4">
+                            <div class="form-group">
+                                    <label for="print_orientation">Print Orientation</label>
+                                    <select class="form-control" id="print_orientation" name="print_orientation"  [(ngModel)]="jobRecord.print_orientation" placeholder="Select Print Orientation">
+                                            <option *ngFor="let obj of jsonObject?.print_orientation;" value="{{ obj.key}}" >{{obj.key}}</option>
+                                        
+                                        <!-- <option value="SIGNAGE">SIGNAGE</option> -->
+                                     </select>
+                                </div>
+                                <div class="form-group">
+                                        <label for="magnification">Magnification</label>
+                                          <input type="text" min="0"  class="form-control" id="magnification"  name="magnification" [(ngModel)]="jobRecord.magnification" placeholder="Magnification (in %)" />
+                                    </div>
+                           
+                                    <div class="form-group">
+                                        <label for="substrate">Substrate</label>
+                                          <input type="text" min="0" class="form-control" id="sub_strate" name="sub_strate"  [(ngModel)]="jobRecord.sub_strate" placeholder="substrate (in mm)" />
+                                      </div>
+                                    <div class="form-group">
+                                            <label for="min_positive_font">Min. Positive font</label>
+                                              <input type="text" min="0" class="form-control" id="min_positive_font" name="min_positive_font" [(ngModel)]="jobRecord.min_positive_font" placeholder="Min Positive Font"  />
+                                        </div>
+                                      
+                    </div>
+                    <div class="col-md-4">
+                            <div class="form-group">
+                                    <label for="bar_code_number">Bar Code Number</label>
+                                  
+                                      <input type="text" class="form-control" id="bar_code_number" name="bar_code_number" [(ngModel)]="jobRecord.bar_code_number" placeholder="Bar Code Number" />
+                                    
+                                  </div>
+                                  <div class="form-group">
+                                        <label for="bar_code">Barcode Type</label>
+                                        <select class="form-control" id="bar_code_type" name="bar_code_type" [(ngModel)]="jobRecord.bar_code_type" placeholder="Select Barcode Type">
+                                                <option *ngFor="let obj of jsonObject?.barcode_type;" value="{{ obj.key }}" >{{obj.key}}</option>
+                                        </select>
+                                    </div>
+                           
+                                <div class="form-group">
+                                    <label for="min_positive_line">Min. Positive Line</label>
+                                      <input type="text" min="0" class="form-control" id="min_positive_line" name="min_positive_line" [(ngModel)]="jobRecord.min_positive_line" placeholder="Min Positive Line" />
+                                </div>
+                                <div class="form-group">
+                                        <label for="min_negative_font">Min. Negative font</label>
+                                          <input type="text" min="0" class="form-control" id="min_negative_font" name="min_negative_font" [(ngModel)]="jobRecord.min_negative_font" placeholder="Min Negative Font"  />
+                                    </div>
+                               
+                    </div>
+                    <div class="col-md-6 prev-btn text-left">
+                            <button class="btn btn-md btn-success" (click)="onStepTwoPrevious()">Previous</button>
+                        </div>
+                    <div class="col-md-6 next-btn text-right">
+                        <button class="btn btn-md btn-success">Next</button>
+                    </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-12 forms-content">
+            <form #stepThreeForm="ngForm" (ngSubmit)="stepThreeForm.valid && onStepThreeNext(stepThreeForm)">
+            <div *ngIf="stepthreeform" class="row form-data">
+                    <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="bleed">Bleed</label>
+                                      <input type="text" min="0" class="form-control" id="bleed" name="bleed" [(ngModel)]="jobRecord.bleed" placeholder="Bleed (in mm)" />
+                                </div>
+                                <div class="form-group">
+                                        <label for="min_dot">Min.Dot</label>
+                                          <input type="text" min="0" class="form-control" id="min_dot" name="min_dot" [(ngModel)]="jobRecord.min_dot" placeholder="Min Dot (in %)" />
+                                    </div>
+                                    <div class="form-group">
+                                            <label for="dot_shape">Dot Shape</label>
+                                            <select class="form-control" id="dot_shapes" name="dot_shapes" [(ngModel)]="jobRecord.dot_shapes" placeholder="Dot Shape" >
+                                                    <option *ngFor="let obj of jsonObject?.dot_shape;" value="{{ obj.key }}" >{{obj.key}}</option>
+                              
+                                             </select>
+                                        </div>
+                                        <div class="form-group">
+                                                <label for="print_sequence">Print Sequence</label>
+                                                 <input type="text" class="form-control" id="print_sequence" name="print_sequence" [(ngModel)]="jobRecord.print_sequence" placeholder="Print Sequence" />
+                                       </div>
+                             
+          
+                                
+                    </div>
+                    <div class="col-md-4">
+                            <div class="form-group">
+                                    <label for="trap">Trap</label>
+                                      <input type="text" min="0" class="form-control" id="trap" name="trap" [(ngModel)]="jobRecord.trap" placeholder="Trap (in mm)" />
+                                </div>     
+                                <div class="form-group">
+                                        <label for="max_dot">Max.Dot</label>
+                                          <input type="text" min="0" class="form-control" id="max_dot" name="max_dot" [(ngModel)]="jobRecord.max_dot" placeholder="Max Dot (in %)" />
+                                    </div>
+                                
+                                    <div class="form-group">
+                                            <label for="colors">Number of colours</label>
+                                            <select class="form-control" id="number_of_colours" name="number_of_colours" [(ngModel)]="jobRecord.number_of_colours" placeholder="Select No. of colours" >
+                                                    <option *ngFor="let obj of jsonObject?.numberOf_colours;" value="{{ obj.key}}" >{{obj.key}}</option>
+                                             </select>
+                                        </div> 
+                                        <div class="form-group">
+                                            <label for="print_sequence">White</label>
+                                             <input  type="text" class="form-control" id="white" name="white" [(ngModel)]="jobRecord.white" placeholder="White"  />
+                                             </div>
+
+                                         
+                                
+                    </div>
+                    <div class="col-md-4">
+                           
+                                    <div class="form-group">
+                                            <label for="pullback_holdback">Pull Back /Hold Back</label>
+                                              <input type="text" min="0" class="form-control" id="pullback_holdback" name="pullback_holdback" [(ngModel)]="jobRecord.pullback_holdback" placeholder="Pull Back (in mm)" />
+                                        </div>
+                                        <div class="form-group">
+                                                <label for="screen_ruling">Screen Ruling</label>
+                                                <select class="form-control" id="screen_ruling" name="screen_ruling" [(ngModel)]="jobRecord.screen_ruling" placeholder="Screen Ruling" >
+                                                        <option *ngFor="let obj of jsonObject?.screen_ruling;" value="{{obj.key}}" >{{obj.key}}</option>
+                                                 </select>
+                                            </div>
+                                            <div class="form-group">
+                                                    <label for="total_ink_coverage">Total Ink Coverage</label>
+                                                      <input type="text" class="form-control" id="total_ink_coverage" name="total_ink_coverage" [(ngModel)]="jobRecord.total_ink_coverage" placeholder="Total Ink Coverage"  />
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="screen_ruling">Varnish</label>
+                                                    <select  class="form-control" id="varnish" name="varnish" [(ngModel)]="jobRecord.varnish" placeholder="Varnish" >
+                                                            <option *ngFor="let obj of jsonObject?.varnish;" value="{{obj.key}}" >{{obj.key}}</option>
+                                                     </select>
+                                                     </div>
+
+                                            
+                                    
+                                
+        
+                                
+                    </div>
+                    <div class="col-md-6 prev-btn text-left">
+                            <button class="btn btn-md btn-success" (click)="onStepThreePrevious()">Previous</button>
+                    </div>
+                    <div class="col-md-6 next-btn text-right">
+                        <button class="btn btn-md btn-success">Done</button>
+                </div>
+                    
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<style>
+    /* .multi-step-form > .step1 > h4, .multi-step-form > .step2 > h4, .multi-step-form > .step3 > h4{
+        background-color: #fff;
+        padding: 15px;
+        border: 1px solid #22D69D;
+    } */
+    .stepone,.steptwo,.stepthree {
+        padding: 15px;
+        border: 1px solid #22D69D;
+    }
+    .steptwo,.stepthree{
+        background-color: #fff;
+    }
+    .steptwobg{
+        background-color: #4ebf9b;
+        color: #fff;
+        padding: 16px;
+    }
+    .stepthreebg{
+        background-color: #268c6b;
+        color: #fff;
+        padding: 16px;
+    }
+    .stepone{
+        background: #22D69D;
+        color: #fff;
+    }
+    
+    .multi-step-form > .step1{
+        padding-right: 0;
+    }
+    
+    .multi-step-form > .step2{
+        padding-right: 0;
+        padding-left:0;
+    }
+    .multi-step-form > .step3{
+        padding-left:0;
+    }
+    .multi-step-form > .forms-content > h4{
+        background: #fff;
+        margin-bottom: 0;
+        padding: 20px;
+    }
+    .multi-step-form > .step1 > h4,.multi-step-form > .step2 > h4,.multi-step-form > .step3 > h4{
+        margin-bottom: 0;
+    } 
+    .multi-step-form > .forms-content .form-data {
+        margin-left: 0;
+        margin-right: 0;
+        background: #fff;
+    }
+    .multi-step-form > .forms-content .form-data .form-group {
+        margin-top: 25px;
+    }
+    .multi-step-form > .forms-content .form-data .next-btn{
+        margin-bottom: 20px;
+    }
+
+</style>

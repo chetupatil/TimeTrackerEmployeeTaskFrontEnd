@@ -1,0 +1,112 @@
+
+<app-page-header [heading]="'Assigned Task'" [icon]="'fa fa-shopping-basket'"></app-page-header>
+
+<div class="row">
+    <div class="col-md-8">
+
+    </div>
+    <div class="col-md-3 jobsList">
+        <select name="jobs_select" id="jobs_select" [(ngModel)]="option" (change)="selctedValue(option)">
+             <option *ngFor="let option of arr" value="{{option.name}}" selected="selected">{{option.name}}</option>
+        </select>
+    </div>
+    <div class="col-md-1">
+
+    </div>
+</div>
+<div class="row" style="margin-top:30px;">
+    <div class="col-md-12">
+        <!--{{jobs |json}}-->
+            <div class="work-flow-table table-responsive" >
+                <!-- <div *ngIf="alertShow" class="alert alert-danger">{{message}}</div> -->
+                <table *ngIf="currentJobsshow" class="table-hover table-striped" >
+				    <thead>
+				        <tr>
+				            <th>Brand</th>
+				            <th>Category</th>
+				            <th>Due Date</th>
+				            <th>TR Number</th>
+				            <th>Item Name</th>
+				            <th>SKU Type</th>
+				            <th>Job Type/Task</th>
+				            <th>Work Flow</th>   
+				            <th>Action</th>
+				        </tr>
+				    </thead>
+			    <tbody *ngFor="let job of jobs; let indexx = index;">
+			        <tr *ngIf = "job.wf_status == 'Open'">
+			            <!-- <td>{{indexx}}</td> -->
+			            <td>{{job.taskDetails.brand}}</td>
+			            <td>{{job.taskDetails.category}}</td>
+			            <td>{{job.taskDetails.due_date}}</td>
+			            <td>{{job.taskDetails.tr_number}}</td>
+			            <td>{{job.taskDetails.item_name}}</td>
+			            <td>{{job.taskDetails.sku_type}}</td>
+			            <td>{{job.taskDetails.job_type}}</td>
+			            <td style="display:none;"><input type="hidden" [(ngModel)]="job.wfId" name="wfId"></td>
+			            <td>
+			                <select class="select_work work_select" name="status" [disabled]="!job.isDisabled" [(ngModel)]="job.status" id="status">
+			                        <option  *ngFor="let masterStatus of masterJsonList.status">{{masterStatus.key}}</option>
+			                </select> 
+			                <select class="select_work work_select" name="select_user" [disabled]="!job.isDisabled" [(ngModel)]='job.assigned_to_id' id="select_user">
+                                <option  *ngFor ="let user of userName;" value="{{user.userId}}">{{user.userName}}</option>
+                                <!-- <option  *ngFor ="let user of userName;" value="{{user.userName}}&&{{user.userId}}">{{user.userName}}</option> -->
+			                </select>
+			                <button *ngIf="job.showSaveButton && !job.playStatus" (click)="EnableSave(job,indexx,$event)">Edit</button>
+                            <button *ngIf="!job.showSaveButton && job.playStatus" (click)="AddWorkFlow(job.task_id,job,job.taskDetails.brief_date,indexx,$event)">save</button>
+			            </td>
+			            <td>
+			                <button  class="class6" (click)="confirmActionTask(job.task_id,job.wfId,indexx)" *ngIf="!job.playStatus && job.action" style="padding-left:10px;outline:none;">
+			                    <i class="fa fa-play"></i>
+			                </button>
+			                <button class="class6" (click)="cancelActionTask(indexx,job.wfId,job.timerId)" *ngIf="job.playStatus && job.action" style="padding-left:10px;outline:none;">
+			                    <i class="fa fa-pause"></i>
+			                </button>
+			            </td>
+                    </tr>
+                    <!-- <tr *ngIf = "job.wf_status == 'Close'">
+                        <td colspan="9">No Records to Display</td>
+                    </tr> -->
+                </tbody>
+                
+                </table>
+                <table *ngIf="!currentJobsshow">
+                    <thead>
+                         <tr>
+                            <th>Brand</th>
+                            <th>Category</th>
+                            <th>Assigned From</th>
+                            <th>Assigned By Time</th>
+                            <th>Assigned To Time</th>
+                            <th>TR Number</th>
+                            <th>Item Name</th>
+                            <th>SKU Type</th>
+                            <th>Job Type/Task</th>
+                            <th>Duration</th>  
+                         </tr>
+                    </thead>
+                            <tbody *ngFor="let pastJob of jobs; let indexx = index;">
+                                <tr *ngIf="pastJob.wf_status == 'Close'"> 
+                                        <!--&& pastJob.assign_to==pastJob.assign_by">   -->
+                                    <!-- <td>{{indexx}}</td> -->
+                                    <td>{{pastJob.taskDetails.brand}}</td>
+                                    <td>{{pastJob.taskDetails.category}}</td>
+                                    <td>{{pastJob.assign_by}}</td>
+                                 <!--   <td *ngIf="pastJob.assign_to==pastJob.assign_by">{{passJob.assign_by}}(Myself)</td>-->
+                                    <td>{{pastJob.startTime}}</td>
+                                    <td>{{pastJob.endTime}}</td>
+                                    <td>{{pastJob.taskDetails.tr_number}}</td>
+                                    <td>{{pastJob.taskDetails.item_name}}</td>
+                                    <td>{{pastJob.taskDetails.sku_type}}</td>
+                                    <td>{{pastJob.taskDetails.job_type}}</td>
+                                    <!-- <td style="display:none;"><input type="hidden" [(ngModel)]="job.wfId" name="wfId"></td> -->
+                                    <td>{{pastJob.duration}} mins</td>
+                                </tr>
+                                <!-- <tr *ngIf = "pastJob.wf_status == 'Open'">
+                                        <td colspan="9">No Records to Display</td>
+                                    </tr> -->
+                            </tbody>
+                </table>
+            </div>
+    </div>
+</div>

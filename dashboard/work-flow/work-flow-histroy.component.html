@@ -1,0 +1,148 @@
+<app-page-header [heading]="'Histroy View'" [icon]="'fa fa-history'"></app-page-header>
+
+<div>
+<form role="form" class="form-horizontal search" #wfHistroy="ngForm" (ngSubmit)="wfHistroy.form.valid && Search(wfHistroy)">
+        <input type="search" name="search"[(ngModel)]="search" class="form-control" placeholder="Search.."  id="search">
+       <!-- <button type="submit">search</button>-->
+</form>
+
+
+
+<div class="table-responsive " *ngIf="!searchList">
+<table class="work-flow-table extension">
+    <thead>
+        <tr>
+            <th>Brand</th>
+            <th>Category</th>
+            <th>TR Number</th>
+            <th>Item Name</th>
+            <th>SKU Type</th>
+            <th>Job Type/Task</th>
+            <th>Duration</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let work of pagedItems;let i=index" (click)="showWorkHistroy(work.task_id1,i)" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" style="cursor:pointer;">
+            <td>{{work.brand}}</td>
+            <td>{{work.category}}</td>
+            <td>{{work.tr_number}}</td>
+            <td>{{work.item_name}}</td>
+            <td>{{work.sku_type}}</td>
+            <td>{{work.job_type}}</td>      
+            <td>{{work.duration}}</td>      
+        </tr>
+    </tbody>
+    <!-- collapse -->
+    <!-- data-toggle="collapse" data-target="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" -->
+</table>
+ <table *ngIf="workHistroyTable" class="work-flow-histroy-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Duration</th>
+            </tr>
+        </thead>
+        <tbody>
+           
+            <tr *ngFor="let workflow of workHistroy">
+                <td>{{workflow.name}}</td>
+                <td>{{workflow.status}}</td>
+                <td>{{workflow.startTime}}</td>
+                <td>{{workflow.endTime}}</td>
+                <td>{{workflow.duration}} </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="table-responsive " *ngIf="searchList">
+        <table class="work-flow-table extension">
+            <thead>
+                <tr>
+                    <th>Brand</th>
+                    <th>Category</th>
+                    <th>TR Number</th>
+                    <th>Item Name</th>
+                    <th>SKU Type</th>
+                    <th>Job Type/Task</th>
+                    <th>Duration</th>
+                </tr>
+            </thead>
+            <tbody>
+        
+                <tr *ngFor="let work of searchList;let i=index" (click)="showWorkHistroy(work.task_id1,i)" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    <td>{{work.brand}}</td>
+                    <td>{{work.category}}</td>
+                    <td>{{work.tr_number}}</td>
+                    <td>{{work.item_name}}</td>
+                    <td>{{work.sku_type}}</td>
+                    <td>{{work.job_type}}</td>      
+                    <td>{{work.totalDuration}}</td>      
+                </tr>
+            </tbody>
+            <!-- collapse -->
+            <!-- data-toggle="collapse" data-target="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" -->
+        </table>
+        
+        <table *ngIf="workHistroyTable" class="work-flow-histroy-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>Duration</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let workflow of workHistroy">
+                        <td>{{workflow.name}}</td>
+                        <td>{{workflow.status}}</td>
+                        <td>{{workflow.startTime}}</td>
+                        <td>{{workflow.endTime}}</td>
+                        <td>{{workflow.duration}} </td>
+                    </tr>
+                </tbody>
+            </table>
+</div>
+<br>
+<!--<button type="button" [disabled] ="!pagination?.pervious" name = "pervious" class="pervious">Pervious</button>
+<button type="button" [disabled] = "!pagination?.next" name = "next" class="next">Next</button>-->
+<!-- <button type="button" (click)="paginationPage(1)" name = "pervious" class="previous">Previous</button>
+<button type="button" *ngIf = "pagination?.next" name = "next" class="next">Next</button> -->
+<ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+    <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+        <a class="page-link" (click)="setPage(1)">First</a>
+    </li>
+    <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+        <a class="page-link" (click)="setPage(pager.currentPage - 1)">Previous</a>
+    </li>
+    <li class="page-item" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+        <a class="page-link" (click)="setPage(page)">{{page}}</a>
+    </li>
+    <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+        <a class="page-link" (click)="setPage(pager.currentPage + 1)" >Next</a>
+    </li>
+    <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+        <a class="page-link" (click)="setPage(pager.totalPages)">Last</a>
+    </li>
+</ul>
+</div>
+<style>
+    .previous {
+    float: left;
+    border: none;
+    background-color: white;
+    margin-left: 38px;
+    margin-top: 30%;
+    }
+    .next{
+        float:right;
+        border: none;
+    background-color: white;
+    margin-right: 38px;
+    margin-top: 30%;
+    }
+    </style>

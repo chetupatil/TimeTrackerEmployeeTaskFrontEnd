@@ -1,0 +1,44 @@
+
+<app-page-header [heading]="'Task Approved'" [icon]="'fa fa-handshake-o'"></app-page-header>
+<div class="table-responsive ">
+
+        <table class="work-flow-table extension">
+                    <thead><tr>
+                            <th>Brand</th>
+                            <th>Category</th>
+                            <th>TR Number</th>
+                            <th>Item Name</th>
+                            <th>SKU Type</th>
+                            <th>Job Type/Task</th>  
+                            <th>Status</th>
+                            <th>Task Status</th>
+                            <!--<th>Action</th>-->
+                            </tr>
+                    </thead>
+            <tbody>
+                    
+                <tr *ngFor="let work of jobs;let i=index">
+                        <td *ngIf="work.status == 'Approved'">{{work.taskDetails.brand}}</td>
+                        <td *ngIf="work.status == 'Approved'">{{work.taskDetails.category}}</td>
+                        <td *ngIf="work.status == 'Approved'">{{work.taskDetails.tr_number}}</td>
+                        <td *ngIf="work.status == 'Approved'">{{work.taskDetails.item_name}}</td>
+                        <td *ngIf="work.status == 'Approved'">{{work.taskDetails.sku_type}}</td>
+                        <td *ngIf="work.status == 'Approved'">{{work.taskDetails.job_type}}</td> 
+                        <td *ngIf="work.status == 'Approved'">{{work.status}}</td>
+                        <td *ngIf="work.status == 'Approved'">
+                                <select *ngIf="work.wf_status== 'Open' && !statusActive"  class="select_work work_select" name="wf_status"  [(ngModel)]="work.wf_status" (ngModelChange)="AddStatus(work.wf_status,work.wf_id)" id="wf_status">
+                                        <!--<option>Open</option>-->
+                                        <option>Close</option>
+                                        
+                                </select> 
+                                <span *ngIf="work.wf_status== 'Close' || statusActive">Task Closed</span>
+                        </td>     
+                   <!-- <td *ngIf="work.status == 'Approved'">
+                            <input *ngIf="work.wf_status== 'Open'" type = "submit" name = "submit" value="submit"  >
+                            <span *ngIf="work.wf_status== 'Close'" style="color: chocolate;">Submitted</span>
+                    </td>-->
+                </tr>
+            </tbody>
+    
+        </table>
+</div>

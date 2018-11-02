@@ -1,0 +1,97 @@
+<app-page-header [heading]="'Job Details'" [icon]="'fa fa-info-circle'"></app-page-header>
+<div class="container">
+    <div class="table-responsive">
+        <table class="work-flow-table table-hover table-striped extension">
+            <thead>
+                <tr>
+                    <th>Worked At</th>
+                    <th>Brand</th>
+                    <th>Category</th>
+                    <th>TR Number</th>
+                    <th>Version</th>
+                    <th>Item Name</th>
+                    <th>Job Category</th>
+                    <th>Job Type/Task</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let job of jobs" (click)="jobIdInfo(job.task_id1)" style="cursor:pointer;">
+                    <td>{{job.worked_at}}</td>
+                    <td>{{job.brand}}</td>
+                    <td>{{job.category}}</td>
+                    <td>{{job.tr_number}}</td>
+                    <td>{{job.version}}</td>
+                    <td>{{job.item_name}}</td>
+                    <td>{{job.job_category}}</td>
+                    <td>{{job.job_type}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+        <div class="col-sm-12">
+                
+                        <!-- <ngb-tabset type="pills">
+                            <ngb-tab title="Info">
+                                <ng-template ngbTabContent>
+                                    <p> Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+                                </ng-template>
+                            </ngb-tab>
+                            <ngb-tab title="Print Spec">
+                                <ng-template ngbTabContent>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.
+                                    <p>Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table
+                                    craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl
+                                    cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia
+                                    yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean
+                                    shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero
+                                    sint qui sapiente accusamus tattooed echo park.</p>
+                                </ng-template>
+                            </ngb-tab>
+                            <ngb-tab title="Colour">
+                                <ng-template ngbTabContent>
+                                    <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth
+                                    master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh
+                                    dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum
+                                    iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+                                </ng-template>
+                            </ngb-tab>
+                            <ngb-tab title="Instructions">
+                                    <ng-template ngbTabContent>
+                                        <p>Lorem ipsum </p>
+                                    </ng-template>
+                            </ngb-tab>
+                        </ngb-tabset> -->
+                   
+        </div>
+    <!-- <h2>Toggleable Pills</h2>
+    <br> -->
+    <!-- Nav pills -->
+    <!-- <ul class="nav nav-pills" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="pill" href="#home">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="pill" href="#menu1">Menu 1</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="pill" href="#menu2">Menu 2</a>
+      </li>
+    </ul> -->
+  
+    <!-- Tab panes -->
+    <!-- <div class="tab-content">
+      <div id="home" class="container tab-pane active"><br>
+        <h3>HOME</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      </div>
+      <div id="menu1" class="container tab-pane fade"><br>
+        <h3>Menu 1</h3>
+        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      </div>
+      <div id="menu2" class="container tab-pane fade"><br>
+        <h3>Menu 2</h3>
+        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+      </div>
+    </div> -->
+  </div>
+  

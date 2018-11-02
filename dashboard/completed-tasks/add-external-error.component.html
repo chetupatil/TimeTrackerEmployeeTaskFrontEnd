@@ -1,0 +1,45 @@
+<app-page-header [heading]="'Add Error Details'" [icon]="'fa-cog'"></app-page-header>
+<div class="backButton">
+        <!--<span class="carousel-control-prev-icon"></span>-->
+     <a routerLink ="/dashboard/completed-tasks-details" >Back</a>
+    </div>
+<div class="row change-password-form-page">
+    <div class="col-md-4">
+
+    </div>
+    <div class="col-md-4 change-password-form">
+        <form #externalErrorForm="ngForm" (ngSubmit)="externalErrorForm.form.valid && AddExternalError(externalErrorForm)">
+            <input type="hidden" name="task_id" [(ngModel)]="task_id" class="form-control"/>
+            <label for="tr_number">TR Number</label>
+            <select class="form-control" id="tr_number" [(ngModel)]="tr_number"  name="tr_number" required>
+                 <option value=" "></option>
+                <option *ngFor="let trN of trNumber;">{{trN.tr_number}}</option>
+            </select>
+            <label for="reportedOn">Reported ON</label>
+            <input type="date" class="form-control" id="reported_on" [(ngModel)]="reported_on" name="reported_on" required/>
+            <label for="addedBy">Added By</label>
+            <select  class="form-control" id="added_by" [(ngModel)]="added_by"  name="added_by" required>
+                <option value=" "></option>
+                <option *ngFor="let userInfo of user;">{{userInfo.firstName}}</option>
+            </select>
+            <label for="pdperson">PD Person</label>
+            <select  class="form-control" id="pd_person" [(ngModel)]="pd_person"  name="pd_person" required>
+                    <option value=" "></option>
+                <option *ngFor="let userInfo of user;">{{userInfo.firstName}}</option>
+            </select>
+            <label for="qcperson">QC Person</label>
+            <select  class="form-control" id="qc_person" [(ngModel)]="qc_person"  name="qc_person" required>
+                    <option value=" "></option>
+                <option *ngFor="let userInfo of user;">{{userInfo.firstName}}</option>
+            </select>
+            <label for="error_description">Error Description</label>
+            <textarea name="error_description"  [(ngModel)]="error_description" class="form-control">
+            </textarea>
+
+            <button class="btn btn-success">Submit</button>
+        </form>
+    </div>
+    <div class="col-md-4">
+
+    </div>
+</div>

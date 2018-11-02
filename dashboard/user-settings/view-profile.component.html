@@ -1,0 +1,37 @@
+<app-page-header [heading]="'View Profile'" [icon]="'fa-user'"></app-page-header>
+
+<!--<div class="table-responsive">
+    <table class="work-flow-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Emp Code</th>
+                <th>Email</th>
+                <th>User Type</th>
+                <th>Mobile Number</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{user.firstName}}</td>
+                <td>{{user.empCode}}</td>
+                <td>{{user.email}}</td>
+                <td> {{user.userType}}</td>
+                <td>{{user.mobileNumber}}</td>
+            </tr>
+        </tbody>
+    </table>   
+</div>-->
+<div class="col-sm-12">
+<div class="col-sm-4 floatLeft">
+        <i class="fa fa-user-circle view"></i>
+</div>
+<div class="col-sm-4 floatLeft">
+    <h4>User Detail</h4>
+    <div><b>User Name</b> : {{user.firstName}} &nbsp; {{user.lastName}}</div>
+    <div><b>Employee Code</b>: {{user.empCode}}</div>
+    <div><b>Mobile Number</b> : {{user.mobileNumber}}</div>
+    <div><b>Email</b> : {{user.email}}</div>
+
+</div>
+</div>

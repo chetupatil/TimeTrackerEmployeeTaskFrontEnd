@@ -1,0 +1,38 @@
+<app-page-header [heading]="'Add User'" [icon]="'fa-cog'"></app-page-header>
+<div class="backButton">
+        <!--<span class="carousel-control-prev-icon"></span>-->
+        <a routerLink ="/dashboard/manage-users" >Back</a>
+    </div>
+<div class="row change-password-form-page">
+    <div class="col-md-4">
+
+    </div>
+    <div class="col-md-4 change-password-form">
+        <form #addUser="ngForm" (ngSubmit)="addUser.form.valid && AddUser(addUser)">
+            <div class="alert alert-danger" *ngIf = "failed">{{compare}}</div>
+            <label for="empCode">Employee Code</label>
+            <input type="text" name="empCode" [(ngModel)]="model.empCode" class="form-control"/>
+            <label for="firstName">First Name</label>
+            <input type="text" name="firstName" [(ngModel)]="model.firstName" class="form-control"/>
+            <label for="lastName">Last Name</label>
+            <input type="text" name="lastName" [(ngModel)]="model.lastName" class="form-control"/>
+            <label for="email">Email</label>
+            <input type="text" name="email" [(ngModel)]="model.email" class="form-control"/>
+            <input type="hidden" name="password" [(ngModel)]="model.password" class="form-control"/>
+            <label for="userType">userType</label>
+            <select class="form-control" id="userType" [(ngModel)]="model.userType"  name="userType" required>
+                    <option>Admin</option>
+                    <option>AccountManager</option>
+                    <option>Manager</option>
+                    <option>TeamLead</option>
+                    <option>Employee</option>
+            </select>
+            <label for="mobileNumber">Mobile Number</label>
+            <input type="text" name="mobileNumber" [(ngModel)]="model.mobileNumber" class="form-control"/>
+            <button class="btn btn-success">Submit</button>
+        </form>
+    </div>
+    <div class="col-md-4">
+
+    </div>
+</div>

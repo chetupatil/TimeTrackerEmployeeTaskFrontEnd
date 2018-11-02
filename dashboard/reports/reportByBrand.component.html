@@ -1,0 +1,73 @@
+<!-- <form #Brand="ngForm" (ngSubmit)="Brand.form.valid && getJobsByBrand(Brand)"></form> -->
+
+<div class="row">
+    <div class="col-md-1">
+
+    </div>
+    <div class="col-md-10 text-center report-card">
+        <h4>{{title}}</h4>
+        <form #Brand="ngForm" (ngSubmit)="Brand.form.valid && getJobsByBrand(Brand)">
+            <div class="row m-t-20"> 
+                <div class="col-md-1">
+
+                </div>
+                <div class="col-md-2">
+                    <label for="year">Year</label>
+                    <select name="year" class="form-control" id="year" [(ngModel)]="year">
+                        <option *ngFor="let year of yearArr" value="{{year.year}}">{{year.year}}</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="month">Month</label>                            
+                    <select name="month" class="form-control" id="month" [(ngModel)]="month">
+                        <option *ngFor="let month of monthArr" value="{{month.key}}">{{month.key}}</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="client_name">Client Name</label>
+                    <select name="client_name" class="form-control" id="client_name" [(ngModel)]="client_name">
+                        <option *ngFor="let client of masterArr?.client_name" value="{{client.key}}">{{client.key}}</option>
+                    </select>
+                </div>
+               
+                <div class="col-md-3">
+                    <p style="color: red" *ngIf="isValue">{{message}}</p>     
+                    <label for="Brands">Brands</label>
+                    <angular2-multiselect [data]="BrandArr" [(ngModel)]="selectedItems" 
+                    [settings]="settings" 
+                    (onSelect)="onItemSelect($event)"
+                    (onDeSelect)="OnItemDeSelect($event)"
+                    name="Brands">
+                    </angular2-multiselect>
+                </div>
+                <div class="col-md-2 m-t-30">
+                    <button class="btn btn-md btn-success">submit</button>
+                </div>
+                <div class="col-md-1">
+
+                </div>
+            </div>
+        </form>
+        </div>
+        </div>
+      
+      
+    <div class="row m-t-20">
+        <div class="col-md-1">
+
+        </div>
+        <div style="display: block;" class="col-md-10 report-card">
+            <canvas baseChart
+                    [datasets]="barChartData"
+                    [labels]="barChartLabels"
+                    [options]="barChartOptions"
+                    [legend]="barChartLegend"
+                    [chartType]="barChartType"
+                    (chartHover)="chartHovered($event)"
+                    (chartClick)="chartClicked($event)"></canvas>
+        </div>
+        <div class="col-md-1">
+
+        </div>
+<button style="display: none;" (click)="randomize()">Update</button>
+</div>

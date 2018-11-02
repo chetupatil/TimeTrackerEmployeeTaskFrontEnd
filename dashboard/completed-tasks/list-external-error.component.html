@@ -1,0 +1,43 @@
+
+<div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <button class="btn btn-sm btn-primary" type="button" (click)="addErrorDetail()">Add External Error Detail</button>
+                <!-- <button class="btn btn-sm btn-primary" type="button" (click)="ngOnInit()" title="Refresh Page">
+                    <i class="fa fa-refresh fa-spin"></i>
+                </button> -->
+                <br><br>
+                <div class="card card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>TR Number</th>
+                                    <th>Added By</th>
+                                    <th>PD Person</th>
+                                    <th>QC Person</th>
+                                    <th>Reported Date</th>
+                                    <th>Error Description</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                 <tr *ngFor="let error of errorDetail;">
+                                     <td>{{error.tr_number}}</td>
+                                     <td>{{error.added_by}}</td>
+                                     <td>{{error.pd_person}}</td>
+                                     <td>{{error.qc_person}}</td>
+                                     <td>{{error.reported_on}}</td>
+                                     <td>{{error.error_description}}</td>
+                                     <td><button  class="btn btn-sm btn-success" type="button" (click)="modifyErrorDetail(error.id)">Modify</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</div>

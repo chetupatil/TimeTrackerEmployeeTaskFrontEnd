@@ -1,0 +1,92 @@
+<app-page-header [heading]="'Job Briefing'" [icon]="'fa-briefcase'"></app-page-header>
+
+<form #job_brief_form="ngForm" (ngSubmit)="job_brief_form.form.valid && createJob(job_brief_form)" class="job_briefing_form">
+    <div class="row job_briefing">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="month">Worked At</label>
+                <select class="form-control" id="worked_at" [(ngModel)]="model.worked_at"  name="model.worked_at" placeholder="Worked At" required>
+                   <option>SZ</option>
+                   <option>BLR</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="category">SKU Type</label>
+                <select class="form-control" id="sku_type" [(ngModel)]="model.sku_type" name="model.sku_type" placeholder="Select SKU Type" required>
+                    <option>BB</option>
+                    <option>QSG</option>
+                    <option>OM</option>
+                    <option>MAGNET LEVEL</option>
+                 </select>
+            </div>
+            <div class="form-group">
+                <label for="tr_number">TR Number</label>
+                <input type="text" class="form-control" id="tr_number" [(ngModel)]="model.tr_number" name="model.tr_number" placeholder="Item Name" required/>
+            </div>
+            <div class="form-group">
+                <label for="Revision Type">Revision Type</label>
+                <input type="text" class="form-control" id="revision_type" [(ngModel)]="model.revision_type" name="model.revision_type" placeholder="Revision Type" required/>
+            </div>
+            <div class="form-group">
+                <label for="due_date">Due Date</label>
+                <input type="date" class="form-control" id="date" name="model.due_date" [(ngModel)]="model.due_date" placeholder="Due Date"  required/>   
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="brand">Brand</label>
+                <select class="form-control" id="brand" [(ngModel)]="brand" name="brand" placeholder="Select Brand" required>
+                   <option>AKG</option>
+                   <option>HK</option>
+                   <option>INFINITY</option>
+                   <option>JBL</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="version">Version</label>
+                <input type="text" class="form-control" id="version" [(ngModel)]="version" name="version" placeholder="version" required/>
+            </div>
+            <div class="form-group">
+                <label for="Briefing">Briefing</label>
+                <input type="text" class="form-control" id="briefing" [(ngModel)]="briefing" name="briefing" placeholder="Briefing" required/>
+            </div>
+            <div class="form-group">
+                <label for="comments">Comments</label>
+                <textarea name="comments" id="comments" [(ngModel)]="comments" class="form-control" ></textarea>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="date">Brief Date</label>
+                <input type="date" class="form-control" id="date" [(ngModel)]="brief_date" name="brief_date" placeholder="Enter Date" required />
+            </div>
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select class="form-control" id="category" [(ngModel)]="category" name="category" placeholder="Select Category" required>
+                    <option>CAR AUDIO</option>
+                    <option>CONNECTED HOMES</option>
+                    <option>HEAD PHONES</option>
+                    <option>JBL</option>
+                 </select>
+            </div>
+            <div class="form-group">
+                <label for="Item Name">Item Name</label>
+                <input type="text" class="form-control" id="item_name" [(ngModel)]="item_name" name="item_name" placeholder="Item Name" required/>
+            </div>
+            <div class="form-group">
+                <label for="task">Task</label>
+                <select class="form-control" id="task" [(ngModel)]="task" name="task" placeholder="Select Task" required>
+                    <option>AMEND</option>
+                    <option>SOP</option>
+                    <option>DISPATCH</option>
+                    <option>PV DISPATCH</option>
+                 </select>
+            </div>
+            <div class="form-group">
+                <label for="email_details">Email Details</label>
+                <textarea name="email_details"  [(ngModel)]="email_details" class="form-control" id="email_details" required></textarea>
+            </div>
+        </div> 
+            <button class="btn btn-success job_briefing_btn">Submit</button>
+    </div>
+</form>

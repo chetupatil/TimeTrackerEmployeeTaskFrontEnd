@@ -1,0 +1,69 @@
+<!--{{jobs|json}}-->
+<!-- <div class="alert alert-danger">{{message}}</div> -->
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 table-responsive">
+            <table class="work-flow-table table-striped"  >
+                <thead class="thead-dark">    
+                    <th>Date</th>
+                    <th>Worked at</th>
+                    <th>Brand</th>
+                    <th>Category</th>
+                  <!--  <th>Deliverable</th>-->
+                    <th>TR Number</th>
+                    <th>Version</th>
+                    <th>Item Name</th>
+                    <th>Revision Type</th>
+                    <th>Briefing</th>
+                    <th>Job Type/Task</th>
+                   <!-- <th>Date Delivered</th>-->
+                    <th>Job Status</th>
+                    <th>PFC</th>
+                    <th>PA</th>
+                    <th>QC</th>
+                    <th>Duration</th>
+                    <th>Edit</th>
+                    <th>Select Project Manager</th>
+                    <th>Action</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let job of jobs;let i=index;">
+                        <td>{{job.brief_date}}</td>
+                        <td>{{job.worked_at}}</td>
+                        <td>{{job.brand}}</td>
+                        <td>{{job.category}}</td>
+                       <!-- <td></td>-->
+                        <td>{{job.tr_number}}</td>
+                        <td>{{job.version}}</td>
+                        <td>{{job.item_name}}</td>
+                        <td>{{job.revision_type}}</td>
+                        <td>{{job.briefing}}</td>
+                        <td>{{job.job_type}}</td>
+                     <!--   <td>{{job.date_delivered}}</td>-->
+                        <td>{{job.Job_status}}</td>
+                        <td>{{job.pfc}}</td>
+                        <td>{{job.pa}}</td>
+                        <td>{{job.qc}}</td>
+                        <td>{{job.duration}}</td>
+                        <td>
+                            <button class="btn btn-info" *ngIf="job.work_started == 0" (click)="editRecord(job.task_id1)">Edit</button>
+                        </td>
+                        <td>
+                            <select  *ngIf="job.selectManager==null && Manager?.idx!=i" class="form-control" id="assign" [(ngModel)]="assign" name="assign" placeholder="Select Manager" required>
+                                <option *ngFor = "let user of userList; let i=index;" value="{{user.firstName}} &&{{user.user_id}}&&{{job.task_id1}}&&{{user.userType}}">{{user.firstName}}</option>
+                             </select>
+                             <span *ngIf="job.selectManager == null && Manager?.assignDisable=='close' && Manager?.idx==i">{{Manager?.assign_to}}</span>
+                             <span *ngIf="job.selectManager!=null ">{{job.selectManager}}</span>
+                        </td>
+                        <td>
+                            <button  class="btn btn-success" *ngIf ="job.selectManager==null"(click)="assignManager(assign,$event,i)">Assign</button>
+                        </td>
+                    </tr>
+                    <tr  *ngIf="jobs?.length==0">
+                        <div  class="info" >No Records</div> 
+                    </tr>
+                </tbody>
+            </table>
+         </div>
+     </div>
+</div>

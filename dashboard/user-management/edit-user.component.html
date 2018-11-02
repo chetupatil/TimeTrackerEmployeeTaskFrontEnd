@@ -1,0 +1,37 @@
+<app-page-header [heading]="'Add User'" [icon]="'fa-cog'"></app-page-header>
+<div class="backButton">
+    <!--<span class="carousel-control-prev-icon"></span>-->
+        <a routerLink ="/dashboard/manage-users" >Back</a>
+</div>
+<div class="row change-password-form-page">
+    <div class="col-md-4">
+       
+    </div>
+    <div class="col-md-4 change-password-form" *ngIf="usersRecord">
+        <form #editUser="ngForm" (ngSubmit)="editUser.form.valid && EditUser(editUser)">
+            <input type="hidden" name="user_id"  [(ngModel)]="usersRecord.user_id" class="form-control">
+            <label for="emp_code">Employee Code</label>
+            <input type="text" name="empCode" [(ngModel)]="usersRecord.empCode" class="form-control"/>
+            <label for="firstName">First Name</label>
+            <input type="text" name="firstName" [(ngModel)]="usersRecord.firstName" class="form-control"/>
+            <label for="lastName">Last Name</label>
+            <input type="text" name="lastName" [(ngModel)]="usersRecord.lastName" class="form-control"/>
+            <label for="email">Email</label>
+            <input type="text" name="email" [(ngModel)]="usersRecord.email" class="form-control"/>
+            <input type="hidden" name="password" [(ngModel)]="usersRecord.password" class="form-control"/>
+            <label for="userType">userType</label>
+            <select class="form-control" id="userType" [(ngModel)]="usersRecord.userType"  name="userType" required>
+                    <option>Admin</option>
+                    <option>AccountManager</option>
+                    <option>TeamLead</option>
+                    <option>Employee</option>
+            </select>
+            <label for="mobileNumber">Mobile Number</label>
+            <input type="text" name="mobileNumber" [(ngModel)]="usersRecord.mobileNumber" class="form-control"/>
+            <button class="btn btn-success">Submit</button>
+        </form>
+    </div>
+    <div class="col-md-4">
+
+    </div>
+</div>

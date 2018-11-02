@@ -1,0 +1,47 @@
+{{ jobs | json}}
+<div class="work-flow-table table-responsive" >
+<table>
+    <thead>
+        <tr>
+            <th>Brand</th>
+            <th>Category</th>
+            <th>Due Date</th>
+            <th>TR Number</th>
+            <th>Item Name</th>
+            <th>SKU Type</th>
+            <th>Job Type/Task</th>
+            <th>Work Flow</th>   
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody *ngFor="let job of jobs; let indexx = index;">
+        <tr *ngIf="job.wf_status !== 'Opened'" >  
+            <!-- <td>{{indexx}}</td> -->
+            <td   >{{job.brand}}</td>
+            <td>{{job.category}}</td>
+            <td>{{job.due_date}}</td>
+            <td>{{job.tr_number}}</td>
+            <td>{{job.item_name}}</td>
+            <td>{{job.sku_type}}</td>
+            <td>{{job.job_type}}</td>
+            <td>
+               
+                <select name="status" [disabled]="!job.isDisabled" [(ngModel)]="job.status" id="status">
+                        <option>Pre Flight</option>
+                        <option>WIP</option>
+                        <option>QC</option>
+                </select> 
+                <select name="select_user" [disabled]="!job.isDisabled" [(ngModel)]="job.assignTo" id="select_user">
+                    <option  *ngFor ="let user of userName;" value="{{user.userName}}">{{user.userName}}</option>
+                </select>
+                <button *ngIf="job.showSaveButton" class="class2 class3" (click)="EnableSave(job,indexx)">Edit</button>
+                <button *ngIf="!job.showSaveButton" (click)="AddWorkFlow(job.task_id1,job,job.brief_date,indexx,$event)">save</button>
+            </td>
+            <td>
+                <button class="class4 class5 fa fa-play" (click)="confirmActionTask(job.task_id1,job.wfId,indexx)" *ngIf="job.play_status" style="padding-left:10px;"></button>
+                <button class="class4 class5 fa fa-pause" (click)="cancelActionTask(indexx)" *ngIf="!job.play_status" style="padding-left:10px;"></button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>

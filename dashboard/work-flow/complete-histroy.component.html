@@ -1,0 +1,27 @@
+<div class="table-responsive">
+        <table class="work-flow-table extension">
+                <thead>
+                    <tr style="text-align: center;">
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>Duration</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let workflow of filterWorkHistroy; let i=index;"style="text-align: center;">
+                        <td>{{workflow.nameTo}}</td>
+                        <td>{{workflow.status}}</td>
+                        <td>{{workflow.startTime}}</td>
+                        <td>{{workflow.endTime}}</td>
+                        <td *ngIf="filterWorkHistroy.length>0">{{workflow.duration}} </td>
+                       
+                    </tr>
+                    <tr style="text-align: center;"> 
+                        <td colspan="4"style="font-weight:bold">Total Duration</td>
+                        <td>{{filterWorkHistroy[1]?.totalDuration}}</td></tr>
+                </tbody>
+            </table>
+</div>
+ 

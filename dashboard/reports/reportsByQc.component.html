@@ -1,0 +1,68 @@
+
+<div class="container">
+    <div class="row">
+            
+        <div class="col-md-1">
+
+        </div>
+        <div class="col-md-10">
+            
+            <form class="form-bg m-t-10" #qc="ngForm" (ngSubmit)="qc.form.valid && getJobsByQc(qc,$event)">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3 class="text-center">{{title}}</h3>
+                        </div>
+                        <div class="col-md-1">
+
+                        </div>
+                        <div class="col-md-2 m-t-10">
+                                <label for="year">Select Year</label>
+                                <select name="year" id="year" [(ngModel)]="year" class="form-control">
+                                    <option *ngFor="let year of yearArr" value="{{year.year}}" selected="selected">{{year.year}}</option>
+                                </select>
+                        </div>
+                        <div class="col-md-3 m-t-10">
+                                <label for="client_name">Client Name</label>
+                                <select name="client_name" class="form-control" id="client_name" [(ngModel)]="client_name">
+                                    <option *ngFor="let client of masterArr?.client_name" value="{{client.key}}">{{client.key}}</option>
+                                </select>
+                        </div>
+                        <div class="col-md-3 m-t-10">
+                            <label for="QcPerson">Select QC</label>
+                            <select name="QcPerson" id="QcPerson" [(ngModel)]="QcPerson" class="form-control">
+                                <option *ngFor="let user of users" [attr.value]="user.firstName" [attr.selected]="user.firstName == 'Nelson' ? true : null">{{user.firstName}}</option> 
+                            </select>
+                        </div>
+                        <div class="col-md-2 m-t-40">
+                                <button class="btn btn-success">submit</button>             
+                        </div>
+                        <div class="col-md-1">
+                            
+                        </div>
+                    </div>
+                
+            </form>
+        </div>
+    </div>
+            
+                    <div class="row m-t-20">
+                        <div class="col-md-1">
+        
+                        </div>
+                        <div style="display: block;" class="col-md-10 report-card">
+                            <canvas baseChart
+                                    [datasets]="barChartData"
+                                    [labels]="barChartLabels"
+                                    [options]="barChartOptions"
+                                    [legend]="barChartLegend"
+                                    [chartType]="barChartType"
+                                    (chartHover)="chartHovered($event)"
+                                    (chartClick)="chartClicked($event)"></canvas>
+                        </div>
+                        <div class="col-md-1">
+        
+                        </div>
+            <button style="display: none;" (click)="randomize()">Update</button>
+        </div>
+
+
